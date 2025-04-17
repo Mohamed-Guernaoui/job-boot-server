@@ -1,0 +1,27 @@
+package org.example.app.springbootmicroservicesapi.Job;
+
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+public class JobController {
+
+    private List<Job> jobs  = new ArrayList<>() ;
+
+    @GetMapping("/show-jobs")
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    @PostMapping("/new-job")
+    public Job createJob(@RequestBody Job job) {
+        jobs.add(job);
+        return job;
+    }
+}
