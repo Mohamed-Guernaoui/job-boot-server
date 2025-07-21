@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,16 +20,15 @@ public class JobController {
     }
 
     @GetMapping("/show-jobs")
-    public List<Job> getJobs() {
-
-        return jobService.getAll();
+    public ResponseEntity<List<Job>> getJobs() {
+        return ResponseEntity.ok(jobService.getAll());
     }
 
     @PostMapping("/new-job")
-    public String createJob(@RequestBody Job job) {
+    public ResponseEntity<String> createJob(@RequestBody Job job) {
         jobService.createJob(job);
-        return "Alert: the Job created successfully ";
-    }
+        return new ResponseEntity<>("the Job created successfully", HttpStatus.CREATED);
+    };
 
     @GetMapping("/job/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable long id ){
