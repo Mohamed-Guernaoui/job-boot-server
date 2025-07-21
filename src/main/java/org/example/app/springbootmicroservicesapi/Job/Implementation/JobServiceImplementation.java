@@ -20,4 +20,15 @@ public class JobServiceImplementation implements JobService {
     public void createJob(Job job) {
         jobs.add(job);
     }
+    @Override
+    public Job retreiveJobById(long id) {
+        // TODO Auto-generated method stub
+        for(Job job:jobs){
+            if(job.getId() == id){
+                return job;
+            };
+        }
+
+        return null;
+    }
 }
