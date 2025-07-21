@@ -5,4 +5,5 @@ import java.util.List;
 public interface JobService {
     List<Job> getAll();
     void createJob(Job job);
+    Job retreiveJobById(long id);
 }
