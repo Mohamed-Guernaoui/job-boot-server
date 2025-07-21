@@ -1,6 +1,9 @@
 package org.example.app.springbootmicroservicesapi.Job;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +14,10 @@ import java.util.List;
 @RestController
 public class JobController {
     private final JobService jobService;
+      
     public JobController(JobService jobService) {
         this.jobService = jobService;
     }
-    private List<Job> jobs  = new ArrayList<>() ;
 
     @GetMapping("/show-jobs")
     public List<Job> getJobs() {
@@ -26,5 +29,15 @@ public class JobController {
     public String createJob(@RequestBody Job job) {
         jobService.createJob(job);
         return "Alert: the Job created successfully ";
+    }
+
+    @GetMapping("/job/{id}")
+    public ResponseEntity<Job> getJobById(@PathVariable long id ){
+        Job job = jobService.retreiveJobById(id);
+        if(job != null)
+            return new ResponseEntity<>(job, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        // return "Alert: the Job created successfully ";
+
     }
 }
